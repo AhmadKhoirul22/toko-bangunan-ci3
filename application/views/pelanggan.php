@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <!-- BEGIN: Head -->
+    <head>
+        <?php include('layout/_css.php') ?>
+    </head>
+    <!-- END: Head -->
+    <body class="app">
+        <!-- BEGIN: Top Bar -->
+        <?php include('layout/_top_bar.php') ?>
+        <!-- END: Top Bar -->
+        <!-- BEGIN: Top Menu -->
+        <?php include('layout/_navbar.php') ?>
+        <!-- END: Top Menu -->
+        <!-- BEGIN: Content -->
+        <div class="content">
+            <div class="card">
+                <div class="card-body">
+                    <!-- BEGIN: General Report -->
+                    <div class="col-span-12 mt-8">
+                        <div class="intro-y flex items-center h-10">
+						<a href="javascript:;" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="button mr-1 mb-2 inline-block bg-theme-1 text-white">Tambah Pelanggan</a>
+						
+						<!-- modal add user -->
+						<div class="modal" id="superlarge-modal-size-preview">
+							<div class="modal__content modal__content--xl p-10">
+							
+							<div class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200">
+								<h2 class="font-medium text-base mr-auto">
+									Tambah Pelanggan
+								</h2>
+							</div>
+								<form action="<?= base_url('pelanggan/tambah')?>" method="post">
+									<div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
+										<div class="col-span-12 sm:col-span-6">
+											<label>Nama</label>
+											<input type="text" name="nama" class="input w-full border mt-2 flex-1" required>
+										</div>
+										<div class="col-span-12 sm:col-span-6">
+											<label>Alamat</label>
+											<input type="text" class="input w-full border mt-2 flex-1" name="alamat" required>
+										</div>
+										<div class="col-span-12 sm:col-span-6">
+											<label>Telp</label>
+											<input type="number" class="input w-full border mt-2 flex-1" name="telp" required>
+										</div>
+										<div class="col-span-12 sm:col-span-6">
+											<label>Telp</label>
+											<input type="text" class="input w-full border mt-2 flex-1" name="wa" placeholder="+6282134563654" required>
+										</div>
+									</div>
+									<div class="px-5 py-3 text-right border-t border-gray-200">
+										<button type="button" data-dismiss="modal"
+											class="button w-20 border text-gray-700 mr-1">Cancel</button>
+										<button type="submit" class="button w-20 bg-theme-1 text-white">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- end modal add user -->
+                        </div>
+                    </div>
+					<div id="autohide" class="mt-3">
+							<?= $this->session->flashdata('alert') ?>
+						</div>
+					<!-- table -->
+					<div class="intro-y datatable-wrapper box p-5 mt-5">
+						<table
+							class="table table-report table-report--bordered display datatable w-full dataTable no-footer dtr-inline collapsed"
+							id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+							<thead>
+								<tr>
+									<th class="text-center" >No</th>
+									<th class="text-center">Nama</th>
+									<th class="text-center">Alamat</th>
+									<th class="text-center">Telp</th>
+									<th class="text-center">Transaksi</th>
+									<th class="text-center">Aksi</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php $no=1; foreach($pelanggan as $row){ ?>
+								<tr class="intro-x">
+									<td class="text-center" > <?= $no; ?> </td>
+									<td class="text-center" > <?= $row['nama'] ?> </td>
+									<td class="text-center" > <?= $row['alamat'] ?> </td>
+									<td class="text-center" > <?= $row['telp'] ?> </td>
+									<td class="text-center">
+										<a class="flex text-center" href="<?= base_url('pelanggan/transaksi/'.$row['id_pelanggan'])?>"><svg
+												xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+												stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+												class="feather feather-dollar-sign mx-auto">
+												<line x1="12" y1="1" x2="12" y2="23"></line>
+												<path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+											</svg>Transaksi </a>
+									</td>
+									<td class="table-report__action w-56">
+										<div class="flex justify-center items-center">
+											<a class="flex items-center mr-3" data-toggle="modal" data-target="#superlarge-modal-size-preview<?= $row['id_pelanggan']?>"
+												href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+													stroke-linejoin="round" class="feather feather-check-square w-4 h-4 mr-1">
+													<polyline points="9 11 12 14 22 4"></polyline>
+													<path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+												</svg> Edit </a>
+												<a class="flex items-center mr-3" href="<?= $row['wa'] ?>" target="_blank" ><svg
+														xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+														stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+														class="feather feather-message-circle mx-auto">
+														<path
+															d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+														</path>
+													</svg> wa </a>
+											<a class="flex items-center text-theme-6" onClick="return confirm('apakah yakin untuk hapus data')"
+												href="<?= base_url('pelanggan/delete/'.$row['id_pelanggan'])?>" data-toggle="modal"
+												data-target="#delete-confirmation-modal"> <svg xmlns="http://www.w3.org/2000/svg" width="24"
+													height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+													stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 w-4 h-4 mr-1">
+													<polyline points="3 6 5 6 21 6"></polyline>
+													<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+													</path>
+													<line x1="10" y1="11" x2="10" y2="17"></line>
+													<line x1="14" y1="11" x2="14" y2="17"></line>
+												</svg> Delete </a>
+										</div>
+									</td>
+								</tr>
+						<!-- modal add user -->
+						<div class="modal" id="superlarge-modal-size-preview<?= $row['id_pelanggan']?>">
+							<div class="modal__content modal__content--xl p-10">
+								<div class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200">
+									<h2 class="font-medium text-base mr-auto">
+										Update Pelanggan
+									</h2>
+								</div>
+								<form action="<?= base_url('pelanggan/update')?>" method="post">
+									<input type="hidden" name="id_pelanggan" value="<?= $row['id_pelanggan'] ?>" >
+									<div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
+										<div class="col-span-12 sm:col-span-6">
+											<label>Nama</label>
+											<input type="text" name="nama" value="<?= $row['nama'] ?>" class="input w-full border mt-2 flex-1" placeholder="Admin">
+										</div>
+										<div class="col-span-12 sm:col-span-6">
+											<label>Alamat</label>
+											<input type="text" class="input w-full border mt-2 flex-1" placeholder="Mimin Ganteng"
+												name="alamat" value="<?= $row['alamat'] ?>" >
+										</div>
+										<div class="col-span-12 sm:col-span-6">
+											<label>Telp</label>
+											<input type="number" value="<?= $row['telp'] ?>" class="input w-full border mt-2 flex-1" name="telp">
+										</div>
+										<div class="col-span-12 sm:col-span-6">
+											<label>Telp</label>
+											<input type="text" class="input w-full border mt-2 flex-1" name="wa" value="<?= $row['wa'] ?>" placeholder="+6282134563654" required>
+										</div>
+									</div>
+									<div class="px-5 py-3 text-right border-t border-gray-200">
+										<button type="button" data-dismiss="modal"
+											class="button w-20 border text-gray-700 mr-1">Cancel</button>
+										<button type="submit" class="button w-20 bg-theme-1 text-white">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- end modal add user -->
+								
+								<?php $no++; ?>
+							<?php } ?>
+							</tbody>
+						</table>
+					</div>
+					<!-- table -->
+                    <!-- END: General Report -->
+                </div>
+               
+            </div>
+        </div>
+        <!-- END: Content -->
+        <!-- BEGIN: JS Assets-->
+        <?php include('layout/_js.php') ?>
+        <!-- END: JS Assets-->
+    </body>
+</html>
