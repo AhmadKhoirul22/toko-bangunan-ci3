@@ -25,8 +25,8 @@
 						</div>
 						<div class="text-right w-full">
 						<a href="javascript:;" data-toggle="modal" data-target="#basic-modal-preview_import" class="button mr-1 mb-2 inline-block bg-theme-1 text-white">Import Excel</a>
+							<a href="<?= base_url('assets/contoh_import_produk.xlsx') ?>" class="button mr-1 mb-2 inline-block bg-theme-1 text-white">Download File Import Excel</a>
 						</div>
-						
 						<!-- modal add user -->
 						<div class="modal" id="superlarge-modal-size-preview">
 							<div class="modal__content modal__content--xl p-10">
