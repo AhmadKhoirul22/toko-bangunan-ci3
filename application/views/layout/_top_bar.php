@@ -118,9 +118,13 @@
                                 <a href="<?= base_url('profile') ?>" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile </a>
                             </div>
 							<?php } ?>
+							<div class="p-2 border-t border-theme-40">
+                                <a href="<?= base_url('user/changepassword/'.$this->session->userdata('id_user')) ?>" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Change Password </a>
+                            </div>
                             <div class="p-2 border-t border-theme-40">
                                 <a href="<?= base_url('auth/logout') ?>" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md"> <i data-feather="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
                             </div>
+							
                         </div>
                     </div>
                 </div>
