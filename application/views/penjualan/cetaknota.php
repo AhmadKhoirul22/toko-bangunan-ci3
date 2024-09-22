@@ -166,7 +166,7 @@
 			<td>:</td>
 			<td></td>
 			<td></td>
-			<td><?= number_format($utang['total_harga']) ?></td>
+			<td>Rp <?= number_format($utang['total_harga']) ?></td>
 		</tr>
 		<tr>
 			<td>Bayar</td>
@@ -175,10 +175,19 @@
 			<td>:</td>
 			<td></td>
 			<td></td>
-			<td><?= number_format($utang['total_harga']-$utang['sisa']) ?></td>
+			<td>Rp <?= number_format($utang['bayar']) ?></td>
 		</tr>
 		<tr>
 			<?php if($utang['keterangan'] == 'LUNAS'){ ?>
+				<tr>
+			<td>Kembalian</td>
+			<td></td>
+			<td></td>
+			<td>:</td>
+			<td></td>
+			<td></td>
+			<td>Rp <?= number_format($utang['bayar']-$utang['total_harga']) ?></td>
+		</tr>
 			<td></td>
 			<td>L</td>
 			<td>U</td>
@@ -187,13 +196,13 @@
 			<td>S</td>
 			<!-- <td><?= number_format($utang['sisa']) ?></td> -->
 			<?php } else { ?>
-			<td>Hutang</td>
+			<td>Kekurangan</td>
 			<td></td>
 			<td></td>
 			<td>:</td>
 			<td></td>
 			<td></td>
-			<td><?= number_format($utang['sisa']) ?></td>
+			<td>Rp <?= number_format($utang['sisa']) ?></td>
 			<?php } ?>
 		</tr>
 	</table>

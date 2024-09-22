@@ -95,16 +95,20 @@
 									<td>Rp <?= number_format($utang['total_harga'])  ?></td>
 								</tr>
 								<tr>
-									<td>Sudah Dibayar</td>
+									<td>Bayarr</td>
 									<td>Rp <?= number_format($utang['total_harga']-$utang['sisa'])  ?></td>
 								</tr>
 								<?php if($utang['keterangan'] == 'LUNAS' ) { ?>
+									<tr>
+										<td>Kembalian</td>
+										<td>Rp <?= number_format($utang['bayar']-$utang['total_harga']) ?></td>
+									</tr>
 								<tr>
 									<td></td>
 									<td> <p class="font-medium" >Lunas</p> </td>
 								</tr>
 								<?php } else if ($utang['keterangan'] != 'LUNAS'){ ?>
-									<td>Belum Dibayar</td>
+									<td>Kekurangan</td>
 									<td>Rp <?= number_format($utang['sisa'])  ?></td>
 								<?php } ?>
 								<tr>

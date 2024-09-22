@@ -14,29 +14,34 @@ class Penjualan extends CI_Controller {
     
 	public function index(){
         date_default_timezone_set('Asia/Jakarta');
-        $tanggal = date('Y-m-d');
-        $data['judul_halaman'] = 'Page of Penjualan';
-        $data['title'] = 'Page of Penjualan';
+		$tanggal = date('Y-m-d');
+		$bulan_ini = date('m'); // Ambil bulan saat ini
+		$tahun_ini = date('Y'); // Ambil tahun saat ini
 
-        $this->db->from('produk');
-        $data['produk'] = $this->db->get()->result_array();
+		$data['judul_halaman'] = 'Page of Penjualan';
+		$data['title'] = 'Page of Penjualan';
+
+		$this->db->from('produk');
+		$data['produk'] = $this->db->get()->result_array();
 
 		$this->db->from('profile');
-        $data['profile'] = $this->db->get()->row();
+		$data['profile'] = $this->db->get()->row();
 
-        $this->db->from('penjualan a')->order_by('a.kode_penjualan','DESC');
-        $this->db->join('pelanggan b','a.id_pelanggan=b.id_pelanggan','left');
-		$this->db->where('a.tanggal',$tanggal);
-        $data['penjualan'] = $this->db->get()->result_array();
+		// Query untuk menampilkan penjualan bulan ini saja
+		$this->db->from('penjualan a')->order_by('a.kode_penjualan', 'DESC');
+		$this->db->join('pelanggan b', 'a.id_pelanggan=b.id_pelanggan', 'left');
+		$this->db->where('MONTH(a.tanggal)', $bulan_ini); // Membandingkan bulan
+		$this->db->where('YEAR(a.tanggal)', $tahun_ini);  // Membandingkan tahun
+		$data['penjualan'] = $this->db->get()->result_array();
 
 		$this->db->from('penjualan s');
-		$this->db->join('detail_penjualan d','d.kode_penjualan = s.kode_penjualan','left');
+		$this->db->join('detail_penjualan d', 'd.kode_penjualan = s.kode_penjualan', 'left');
 		$data['detail'] = $this->db->get()->result_array();
 
-        $this->db->from('pelanggan');
-        $data['pelanggan'] = $this->db->get()->result_array();
+		$this->db->from('pelanggan');
+		$data['pelanggan'] = $this->db->get()->result_array();
 
-		$this->load->view('penjualan/penjualan',$data);
+		$this->load->view('penjualan/penjualan', $data);
 	}
 
 	public function datalengkap(){
@@ -538,11 +543,13 @@ class Penjualan extends CI_Controller {
 		$pdf->Cell(45,6,'Rp '.number_format($totalNominal, 2),1,1,'R');
 	
 		$pdf->Cell(202,6,'Sudah Dibayar',1,0,'L');
-		$pdf->Cell(45,6,'Rp '.number_format($utang->total_harga-$utang->sisa, 2),1,1,'R');
+		$pdf->Cell(45,6,'Rp '.number_format($utang->bayar, 2),1,1,'R');
 		if($utang->keterangan == 'LUNAS'){
+			$pdf->Cell(202,6,'Kembalian',1,0,'L');
+			$pdf->Cell(45,6,'Rp '.number_format($utang->bayar-$utang->total_harga, 2),1,1,'R');
 			$pdf->Cell(247,6,'Lunas',1,0,'C');
 		} else if ($utang->keterangan != 'LUNAS'){
-			$pdf->Cell(202,6,'Belum Dibayar',1,0,'L');
+			$pdf->Cell(202,6,'Kekurangan',1,0,'L');
 			$pdf->Cell(45,6,'Rp '.number_format($utang->sisa, 2),1,1,'R');
 		}
 		$pdf->Output();
