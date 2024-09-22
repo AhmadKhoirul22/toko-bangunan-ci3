@@ -54,42 +54,14 @@
                 <li>
                     <a href="<?= base_url('penjualan') ?>" class="top-menu top-menu--<?php if($menu == 'penjualan'){echo 'active';} ?>">
                         <div class="top-menu__icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign mx-auto"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> </div>
-                        <div class="top-menu__title"> Penjualan <i data-feather="chevron-down" class="top-menu__sub-icon"></i> </div>
+                        <div class="top-menu__title"> Penjualan  </div>
                     </a>
-					<ul class="">
-                        <li>
-                            <a href="<?= base_url('piutangpenjualan') ?>" class="top-menu">
-                                <div class="top-menu__icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign mx-auto"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> </div>
-                                <div class="top-menu__title"> Piutang Penjualan </div>
-                            </a>
-                        </li>
-						<!-- <li>
-                            <a href="<?= base_url('penjualan/datalengkap') ?>" class="top-menu">
-                                <div class="top-menu__icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign mx-auto"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> </div>
-                                <div class="top-menu__title"> Data Lengkap </div>
-                            </a>
-                        </li> -->
-                    </ul>
                 </li>
                 <li>
                     <a href="<?= base_url('pembelian') ?>" class="top-menu top-menu--<?php if($menu == 'pembelian'){echo 'active';} ?>">
                         <div class="top-menu__icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart mx-auto"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg> </div>
-                        <div class="top-menu__title"> Pembelian <i data-feather="chevron-down" class="top-menu__sub-icon"></i> </div>
+                        <div class="top-menu__title"> Pembelian </div>
                     </a>
-					<ul class="">
-                        <li>
-                            <a href="<?= base_url('piutangpembelian') ?>" class="top-menu">
-                                <div class="top-menu__icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart mx-auto"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg> </div>
-                                <div class="top-menu__title"> Piutang Pembelian </div>
-                            </a>
-                        </li>
-						<!-- <li>
-                            <a href="<?= base_url('pembelian/datalengkap') ?>" class="top-menu">
-                                <div class="top-menu__icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart mx-auto"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg> </div>
-                                <div class="top-menu__title"> Data Lengkap </div>
-                            </a>
-                        </li> -->
-                    </ul>
                 </li>
             </ul>
         </nav>

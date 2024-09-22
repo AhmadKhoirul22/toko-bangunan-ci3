@@ -26,6 +26,9 @@
 								class="button mr-1 mb-2 inline-block bg-theme-1 text-white">Tambah Pembelian</a>
 						</div>
 						<div class="text-right w-full">
+						<a href="<?= base_url('piutangpembelian') ?>"
+								class="button mb-2 justify-end inline-block bg-theme-1 text-white">
+								Piutang Pembelian</a>
 							<a href="javascript:;" data-toggle="modal" data-target="#datepicker-modal-preview"
 								class="button mb-2 justify-end inline-block bg-theme-1 text-white">
 								Cetak Data Pembelian</a>
@@ -116,7 +119,7 @@
 						</div>
 					<!-- table -->
 					<div class="intro-y datatable-wrapper box p-5 mt-5">
-					<h2 class="text-center font-medium text-lg" >Pembelian Hari ini</h2>
+					<h2 class="text-center font-medium text-lg" >Pembelian Bulan ini</h2>
 						<table
 							class="table table-report table-report--bordered display datatable w-full dataTable no-footer dtr-inline collapsed"
 							id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
