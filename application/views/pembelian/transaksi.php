@@ -110,9 +110,7 @@
 				 				<div>
 				 					<label>Bayar</label>
 				 					<div class="relative" id="input-groups" >
-				 						<div
-				 							class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 mt-2">
-				 							Rp</div><input type="number" name="bayar" class="input pl-12 w-full h-full border col-span-4 mt-2" required >
+				 						<input type="number" id="bayar" oninput="hitungUang()" name="bayar" class="input w-full border mt-2" required >
 				 					</div>
 				 				</div>
 								 <div class="mt-3" >
@@ -122,6 +120,10 @@
 										<option value="Bank">Bank</option>
 									</select>
 				 				</div>
+								 <div class="mt-3">
+									<label for="" id="labelUang" >Uang</label>
+									<input type="number" name="uang" id="uang" readonly value="" class="input w-full border mt-2" >
+								</div>
 				 				<div class="text-right mt-5">
 				 					<button type="submit" class="button w-24 bg-theme-1 text-white">Bayar</button>
 				 				</div>
@@ -138,6 +140,33 @@
 	<!-- END: Content -->
 	<!-- BEGIN: JS Assets-->
 	<?php $this->load->view('layout/_js') ?>
+	<script>
+	function hitungUang() {
+		// Ambil nilai total dan bayar
+		var total = <?= $total ?>;
+		var bayar = parseFloat(document.getElementById("bayar").value);
+
+		// Pastikan bayar ada nilainya sebelum melakukan perhitungan
+		if (isNaN(bayar)) {
+			document.getElementById("uang").value = '';
+			document.getElementById("labelUang").innerText = "Uang";
+			return;
+		}
+
+		// Hitung hasil
+		var hasil = bayar - total;
+
+		// Update nilai uang secara dinamis
+		document.getElementById("uang").value = hasil;
+
+		// Update label berdasarkan hasil
+		if (hasil < 0) {
+			document.getElementById("labelUang").innerText = "Piutang";
+		} else {
+			document.getElementById("labelUang").innerText = "Kembalian";
+		}
+	}
+</script>
 	<!-- END: JS Assets-->
 </body>
 
