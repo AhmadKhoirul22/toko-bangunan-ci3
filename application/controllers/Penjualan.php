@@ -452,12 +452,11 @@ class Penjualan extends CI_Controller {
     }
 
 	public function cetakinvoice($kode_penjualan){
-		error_reporting(0); // AGAR ERROR MASALAH VERSI PHP TIDAK MUNCUL
+		error_reporting(0);
 	
+		// Ambil data dari database
 		$this->db->from('profile');
 		$profile = $this->db->get()->row();
-	
-		$title = 'Invoice Penjualan';
 	
 		$this->db->from('penjualan a');
 		$this->db->join('pelanggan b','b.id_pelanggan = a.id_pelanggan','left');
@@ -470,52 +469,54 @@ class Penjualan extends CI_Controller {
 		$this->db->where('y.kode_penjualan',$kode_penjualan);
 		$detail_penjualan = $this->db->get()->result();
 	
-		$this->db->select('*');
-		$this->db->where('kode_penjualan',$kode_penjualan);
-		$this->db->from('detail_utang_penjualan');
-		$detail = $this->db->get()->result();
-	
+		// Set up PDF
 		$pdf = new FPDF('L', 'mm','Letter');
 		$pdf->AddPage();
 		$pdf->SetFont('Arial','B',16);
 		$pdf->Cell(0,20,$profile->nama,0,1,'C');
 	
 		$pdf->SetFont('Arial','',12);
-	
-		// Baris untuk "From:", "To:", dan "NOTA:"
+		// baris
 		$pdf->SetX(10);
 		$pdf->Cell(60, 7, 'From:', 0, 0, 'L');
-		$pdf->SetX(125);
-		$pdf->Cell(60, 7, 'To:', 0, 0, 'L');
-		$pdf->SetX(230);
-		$pdf->Cell(60, 7, '-', 0, 1, 'L');
-		
+		$pdf->SetX(215);
+		$pdf->Cell(60, 7, 'To:', 0, 1, 'L');
+		// $pdf->SetX(215);
+		// $pdf->Cell(60, 7, '-', 0, 1, 'L');
+
 		$pdf->SetX(10);
 		$pdf->Cell(60, 7, $profile->nama, 0, 0, 'L');
-		$pdf->SetX(125);
-		$pdf->Cell(60, 7, $utang->nama, 0, 0, 'L');
-		$pdf->SetX(230);
-		$pdf->Cell(60, 7,'No Nota : '.$utang->kode_penjualan, 0, 1, 'L');
-		
+		$pdf->SetX(215);
+		$pdf->Cell(60, 7, $utang->nama, 0, 1, 'L');
+		// $pdf->SetX(215);
+		// $pdf->Cell(60, 7,'No Nota : '.$utang->kode_penjualan, 0, 1, 'L');
+
 		$pdf->SetX(10);
 		$pdf->Cell(60, 7, $profile->alamat, 0, 0, 'L');
-		$pdf->SetX(125);
-		$pdf->Cell(60, 7, $utang->alamat, 0, 0, 'L');
-		$pdf->SetX(230);
-		$pdf->Cell(60, 7,'Pembayaran : '.$utang->pembayaran, 0, 1, 'L');
+		$pdf->SetX(215);
+		$pdf->Cell(60, 7, $utang->alamat, 0,  1,'L');
 		
+
 		$pdf->SetX(10);
 		$pdf->Cell(60, 7,'Telp : '. $profile->telp, 0, 0, 'L');
-		$pdf->SetX(125);
-		$pdf->Cell(60, 7,'Telp : '.$utang->telp, 0, 0, 'L');
-		$pdf->SetX(230);
-		$pdf->Cell(60, 7,'Tanggal : '.tanggal_indo($utang->tanggal), 0, 1, 'L');
-		
+		$pdf->SetX(215);
+		$pdf->Cell(60, 7,'Telp : '.$utang->telp, 0, 1, 'L');
+		// $pdf->SetX(215);
+		// $pdf->Cell(60, 7,'Tanggal : '.tanggal_indo($utang->tanggal), 0, 1, 'L');
+
 		$pdf->SetX(10);
-		$pdf->Cell(60, 7,'Email : '.$profile->email, 0, 1, 'L');
-		$pdf->Cell(60, 7,'BCA : '.$profile->nama.$profile->no_rekening, 0, 0, 'L');
-		$pdf->Cell(0, 7, '', 0, 1, 'R'); 
+		$pdf->Cell(60, 7,'Email : '.$profile->email, 0, 0, 'L');
+		$pdf->SetX(215);
+		$pdf->Cell(60, 7,'Nota : '.$utang->kode_penjualan, 0, 1, 'L');
+		$pdf->SetX(10);
+		$pdf->Cell(60, 7,'BCA : '.$profile->no_rekening, 0, 0, 'L');
+		$pdf->Cell(0, 7, '', 0, 0, 'R'); 
+		$pdf->SetX(215);
+		$pdf->Cell(60, 7,'Pembayaran : '.$utang->pembayaran, 0, 1, 'L');
+
+		
 	
+		// Tabel detail penjualan
 		$pdf->Cell(10,7,'',0,1);
 		$pdf->SetFont('Arial','B',10);
 		$pdf->Cell(20,6,'No',1,0,'C');
@@ -538,12 +539,15 @@ class Penjualan extends CI_Controller {
 			$pdf->Cell(45,6,'Rp '.number_format($data->sub_total),1,1,'R');
 			$totalNominal = $totalNominal+$data->jumlah*$data->harga;
 		}
+	
+		// Total Harga
 		$pdf->SetFont('Arial','B',10);
 		$pdf->Cell(202,6,'Total Harga',1,0,'L');
 		$pdf->Cell(45,6,'Rp '.number_format($totalNominal, 2),1,1,'R');
 	
 		$pdf->Cell(202,6,'Sudah Dibayar',1,0,'L');
 		$pdf->Cell(45,6,'Rp '.number_format($utang->bayar, 2),1,1,'R');
+	
 		if($utang->keterangan == 'LUNAS'){
 			$pdf->Cell(202,6,'Kembalian',1,0,'L');
 			$pdf->Cell(45,6,'Rp '.number_format($utang->bayar-$utang->total_harga, 2),1,1,'R');
@@ -552,9 +556,9 @@ class Penjualan extends CI_Controller {
 			$pdf->Cell(202,6,'Kekurangan',1,0,'L');
 			$pdf->Cell(45,6,'Rp '.number_format($utang->sisa, 2),1,1,'R');
 		}
+	
 		$pdf->Output();
-	}
-
+	}	
 	public function cetaknota($kode_penjualan){
 		$this->db->from('profile');
 		$data['profile'] = $this->db->get()->row();

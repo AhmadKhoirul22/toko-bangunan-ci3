@@ -84,10 +84,7 @@
 								<div>
 									<label>Nominal</label>
 									<div class="relative">
-									<div
-										class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 mt-2">
-										Rp</div>
-									<input type="number" name="nominal" name="nominal" min="0" required class="input pl-12 w-full h-full border col-span-4 mt-2" required>
+									<input type="number" name="nominal" name="nominal" min="0" required class="input w-full border mt-2" required>
 									</div>
 									
 									<input type="hidden" name="sisa" value="<?= $utang['sisa'] ?>" >
