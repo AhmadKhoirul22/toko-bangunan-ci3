@@ -27,9 +27,9 @@
 						</div>
 
 						<div class="text-right w-full">
-						<a href="<?= base_url('piutangpenjualan') ?>"
+						<!-- <a href="<?= base_url('piutangpenjualan') ?>"
 								class="button mb-2 justify-end inline-block bg-theme-1 text-white">
-								Piutang Penjualan</a>
+								Piutang Penjualan</a> -->
 							<a href="javascript:;" data-toggle="modal" data-target="#datepicker-modal-preview"
 								class="button mb-2 justify-end inline-block bg-theme-1 text-white">
 								Cetak Data Penjualan</a>
