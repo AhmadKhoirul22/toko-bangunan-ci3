@@ -25,8 +25,8 @@
 						</div>
 						<div class="text-right w-full">
 						<a href="javascript:;" data-toggle="modal" data-target="#basic-modal-preview_import" class="button mr-1 mb-2 inline-block bg-theme-1 text-white">Import Excel</a>
-							<a href="<?= base_url('assets/contoh_import_produk.xlsx') ?>" class="button mr-1 mb-2 inline-block bg-theme-1 text-white">Download File Import Excel</a>
 						</div>
+						
 						<!-- modal add user -->
 						<div class="modal" id="superlarge-modal-size-preview">
 							<div class="modal__content modal__content--xl p-10">
@@ -51,8 +51,12 @@
 											<input type="text" class="input w-full border mt-2 flex-1" name="kode_produk" required>
 										</div>
 										<div class="col-span-12 sm:col-span-6">
-											<label>Harga</label>
-											<input type="number" class="input w-full border mt-2 flex-1" name="harga" required>
+											<label>Harga Jual</label>
+											<input type="number" class="input w-full border mt-2 flex-1" name="harga_jual" required>
+										</div>
+										<div class="col-span-12 sm:col-span-6">
+											<label>Harga Beli</label>
+											<input type="number" class="input w-full border mt-2 flex-1" name="harga_beli" required>
 										</div>
 										<div class="col-span-12 sm:col-span-6 mt-3">
 											<label>Nama Kategori</label>
@@ -115,7 +119,8 @@
 									<th class="text-center">Kode Produk</th>
 									<th class="text-center">Nama Kategori</th>
 									<th class="text-center">Stok</th>
-									<th class="text-center">Harga</th>
+									<th class="text-center">Harga Jual</th>
+									<th class="text-center">Harga Beli</th>
 									<th class="text-center">Jumlah Penjualan</th>
 									<th class="text-center">Jumlah Dicancel</th>
 									<th class="text-center">Aksi</th>
@@ -129,7 +134,8 @@
 									<td class="text-center" > <?= $row['kode_produk'] ?> </td>
 									<td class="text-center" > <?= $row['nama_kategori'] ?> </td>
 									<td class="text-center" > <?= $row['stok'] ?> </td>
-									<td class="text-right" >Rp <?= number_format($row['harga'])  ?> </td>
+									<td class="text-right" >Rp <?= number_format($row['harga_jual'])  ?> </td>
+									<td class="text-right" >Rp <?= number_format($row['harga_beli'])  ?> </td>
 									<td class="text-center" > 
 									<?php
 											$found = false;
@@ -169,6 +175,14 @@
 													<polyline points="9 11 12 14 22 4"></polyline>
 													<path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
 												</svg> Edit </a>
+												<a class="flex items-center mr-3" data-toggle="modal"
+													data-target="#basic-modal-preview2<?= $row['id_produk']?>" href="javascript:;"> <svg
+														xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+														stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+														class="feather feather-check-square w-4 h-4 mr-1">
+														<polyline points="9 11 12 14 22 4"></polyline>
+														<path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+													</svg> Stok </a>
 											<a class="flex items-center text-theme-6" onClick="return confirm('apakah yakin untuk hapus data')"
 												href="<?= base_url('produk/delete/'.$row['id_produk'])?>" data-toggle="modal"
 												data-target="#delete-confirmation-modal"> <svg xmlns="http://www.w3.org/2000/svg" width="24"
@@ -203,13 +217,17 @@
 											<input type="text" class="input w-full border mt-2 flex-1"
 												name="kode_produk" value="<?= $row['kode_produk'] ?>">
 										</div>
+											<!-- <div class="col-span-12 sm:col-span-6">
+												<label>Stok</label>
+												<input type="number" value="<?= $row['stok'] ?>" class="input w-full border mt-2 flex-1" name="stok" readonly >
+											</div> -->
 										<div class="col-span-12 sm:col-span-6">
-											<label>Stok</label>
-											<input type="number" value="<?= $row['stok'] ?>" class="input w-full border mt-2 flex-1" name="stok" readonly >
+											<label>Harga Jual</label>
+											<input type="number" class="input w-full border mt-2 flex-1" value="<?= $row['harga_jual'] ?>" name="harga_jual" required>
 										</div>
 										<div class="col-span-12 sm:col-span-6">
-											<label>Harga</label>
-											<input type="number" value="<?= $row['harga'] ?>" class="input w-full border mt-2 flex-1" name="harga">
+											<label>Harga Beli</label>
+											<input type="number" class="input w-full border mt-2 flex-1" name="harga_beli" value="<?= $row['harga_beli'] ?>" required>
 										</div>
 										<div class="col-span-12 sm:col-span-6 mt-3">
 											<label>Nama Kategori</label>
@@ -219,6 +237,31 @@
 												<?php } ?>
 											</select>
 										</div>
+									</div>
+									<div class="px-5 py-3 text-right border-t border-gray-200">
+										<button type="button" data-dismiss="modal"
+											class="button w-20 border text-gray-700 mr-1">Cancel</button>
+										<button type="submit" class="button w-20 bg-theme-1 text-white">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- end modal add user -->
+						 <!-- modal add user -->
+						<div class="modal" id="basic-modal-preview2<?= $row['id_produk']?>">
+							<div class="modal__content p-10">
+								<div class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200">
+									<h2 class="font-medium text-base mr-auto">
+										Update Stok
+									</h2>
+								</div>
+								<form action="<?= base_url('produk/updatestok')?>" method="post">
+									<input type="hidden" name="id_produk" value="<?= $row['id_produk'] ?>" >
+									<div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
+											<div class="col-span-12 sm:col-span-12">
+												<label>Stok</label>
+												<input type="number" value="<?= $row['stok'] ?>" class="input w-full border mt-2 flex-1" name="stok"  >
+											</div>
 									</div>
 									<div class="px-5 py-3 text-right border-t border-gray-200">
 										<button type="button" data-dismiss="modal"

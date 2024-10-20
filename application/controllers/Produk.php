@@ -67,7 +67,8 @@ class Produk extends CI_Controller {
             'id_kategori' => $this->input->post('id_kategori'),
             'kode_produk' => $this->input->post('kode_produk'),
             'stok' => $this->input->post('stok'),
-            'harga' => $this->input->post('harga')
+            'harga_jual' => $this->input->post('harga_jual'),
+            'harga_beli' => $this->input->post('harga_beli')
         );
         $this->db->insert('produk',$data);
 		$alert_html = '
@@ -144,9 +145,10 @@ class Produk extends CI_Controller {
         $data = array(
             'kode_produk' => $this->input->post('kode_produk'),
             'nama' => $this->input->post('nama'),
-            'stok' => $this->input->post('stok'),
+            // 'stok' => $this->input->post('stok'),
             'id_kategori' => $this->input->post('id_kategori'),
-            'harga' => $this->input->post('harga'),
+            'harga_jual' => $this->input->post('harga_jual'),
+            'harga_beli' => $this->input->post('harga_beli')
         );
         $where = array(
             'id_produk' => $this->input->post('id_produk')
@@ -168,6 +170,40 @@ class Produk extends CI_Controller {
         $this->session->set_flashdata('alert',$alert_html);
     	redirect('produk');
     }
+
+	public function updatestok(){
+		date_default_timezone_set("Asia/Jakarta");
+		$tanggal = date('Y-m-d:H:i:s');
+		$stok = $this->input->post('stok');
+		if(!empty($this->input->post('id_produk'))){
+			$dt = array(
+				'id_produk' => $this->input->post('id_produk'),
+				'keterangan' => 'Stok diubah menjadi '.$stok,
+				'tanggal' => $tanggal
+			);
+			$this->db->insert('log',$dt);
+		}
+		$data = array(
+			'stok' => $stok
+		);
+		$where = array('id_produk' => $this->input->post('id_produk'));
+		$this->db->update('produk',$data,$where);
+		$alert_html = '
+			<div class="rounded-md flex items-center px-5 py-4 mb-2 bg-theme-9 text-white">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle w-6 h-6 mr-2">
+					<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+					<line x1="12" y1="9" x2="12" y2="13"></line>
+					<line x1="12" y1="17" x2="12.01" y2="17"></line>
+				</svg>
+				Data Berhasil diupdate
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-auto">
+					<line x1="18" y1="6" x2="6" y2="18"></line>
+					<line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
+			</div>';
+        $this->session->set_flashdata('alert',$alert_html);
+    	redirect('produk');
+	}
 	// import excel
 	public function excel() {
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
