@@ -223,6 +223,7 @@ class Penjualan extends CI_Controller {
         $this->db->where('a.id_pelanggan',$this->input->post('id_pelanggan'));
         $temp = $this->db->get()->result_array();
         $total = 0;
+        $total_beli = 0;
         foreach($temp as $ar){
             //cek stok apakah melebihi jumlah
             if($ar['stok']<$ar['jumlah']){
@@ -233,13 +234,15 @@ class Penjualan extends CI_Controller {
                 </div>');
                 redirect($_SERVER["HTTP_REFERER"]);
             }
-            $total = $total+$ar['jumlah']*$ar['harga'];
+            $total = $total+$ar['jumlah']*$ar['harga_jual'];
+            $total_beli = $total_beli+$ar['jumlah']*$ar['harga_beli'];
             //input ke tabel detail penjualan
             $data = array(
                 'kode_penjualan' => $nota,
                 'id_produk' => $ar['id_produk'],
                 'jumlah' => $ar['jumlah'],
-                'sub_total' => $ar['jumlah']*$ar['harga'],
+                'harga_beli' => $ar['harga_beli'],
+                'harga_jual' => $ar['harga_jual'],
             );
             $this->db->insert('detail_penjualan',$data);
             //update stok produk

@@ -75,8 +75,8 @@
                                         <td class="text-center border-b w-32"><?= $detail['kode_produk'] ?></td>
                                         <td class="text-center border-b w-32"><?= $detail['nama'] ?></td>
                                         <td class="text-center border-b w-32 font-medium"> <?= $detail['jumlah']  ?></td>
-                                        <td class="text-right border-b w-32 font-medium">Rp <?= number_format($detail['harga'])  ?></td>
-                                        <td class="text-right border-b w-32 font-medium">Rp <?= number_format($detail['harga']*$detail['jumlah'])  ?></td>
+                                        <td class="text-right border-b w-32 font-medium">Rp <?= number_format($detail['harga_jual'])  ?></td>
+                                        <td class="text-right border-b w-32 font-medium">Rp <?= number_format($detail['harga_jual']*$detail['jumlah'])  ?></td>
                                     </tr>
 									<?php } ?>
 									<!-- <?php $total = $utang['total_harga'] - $detail['nominal'] ?> -->
