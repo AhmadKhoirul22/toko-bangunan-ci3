@@ -388,10 +388,18 @@ class Penjualan extends CI_Controller {
 		$this->db->where('a.kode_penjualan',$kode_penjualan);
 		$data['utang'] = $this->db->get()->result_array();
 
+		// $this->db->from('detail_penjualan y');
+		// $this->db->join('produk x','x.id_produk = y.id_produk','left');
+		// $this->db->where('y.kode_penjualan',$kode_penjualan);
+		// $data['detail_penjualan'] = $this->db->get()->result_array();
+
 		$this->db->from('detail_penjualan y');
 		$this->db->join('produk x','x.id_produk = y.id_produk','left');
-		$this->db->where('y.kode_penjualan',$kode_penjualan);
-		$data['detail_penjualan'] = $this->db->get()->result_array();
+		$this->db->where('y.kode_penjualan', $kode_penjualan);
+		$data['detail_penjualan'] = $this->db->select('y.harga_jual, y.harga_beli, y.jumlah, x.nama, x.kode_produk')
+		->get()
+		->result_array();
+
 
 		$this->db->select('*');
 		$this->db->where('kode_penjualan',$kode_penjualan);
@@ -470,7 +478,9 @@ class Penjualan extends CI_Controller {
 		$this->db->from('detail_penjualan y');
 		$this->db->join('produk x','x.id_produk = y.id_produk','left');
 		$this->db->where('y.kode_penjualan',$kode_penjualan);
-		$detail_penjualan = $this->db->get()->result();
+		$detail_penjualan = $this->db->select('y.harga_jual, y.harga_beli, y.jumlah, x.nama, x.kode_produk')
+		->get()
+		->result();
 	
 		// Set up PDF
 		$pdf = new FPDF('L', 'mm','Letter');
@@ -538,9 +548,9 @@ class Penjualan extends CI_Controller {
 			$pdf->Cell(85,6,$data->kode_produk,1,0);
 			$pdf->Cell(27,6,$data->nama,1,0);
 			$pdf->Cell(25,6,$data->jumlah,1,0);
-			$pdf->Cell(45,6,'Rp '.number_format($data->harga),1,0,'R');
+			$pdf->Cell(45,6,'Rp '.number_format($data->harga_jual),1,0,'R');
 			$pdf->Cell(45,6,'Rp '.number_format($data->sub_total),1,1,'R');
-			$totalNominal = $totalNominal+$data->jumlah*$data->harga;
+			$totalNominal = $totalNominal+$data->jumlah*$data->harga_jual;
 		}
 	
 		// Total Harga
@@ -576,8 +586,10 @@ class Penjualan extends CI_Controller {
 
 		$this->db->from('detail_penjualan y');
 		$this->db->join('produk x','x.id_produk = y.id_produk','left');
-		$this->db->where('y.kode_penjualan',$kode_penjualan);
-		$data['detail_penjualan'] = $this->db->get()->result_array();
+		$this->db->where('y.kode_penjualan', $kode_penjualan);
+		$data['detail_penjualan'] = $this->db->select('y.harga_jual, y.harga_beli, y.jumlah, x.nama, x.kode_produk')
+		->get()
+		->result_array();
 
 		$this->db->select('*');
 		$this->db->where('kode_penjualan',$kode_penjualan);

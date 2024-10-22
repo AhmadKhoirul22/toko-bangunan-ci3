@@ -137,7 +137,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td><?= number_format($detail['harga']) ?></td>
+		<td><?= number_format($detail['harga_jual']) ?></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -148,7 +148,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td><?= number_format($detail['harga']*$detail['jumlah']) ?></td>
+		<td><?= number_format($detail['harga_jual']*$detail['jumlah']) ?></td>
 		</tr>
 	</table>
 	<?php } ?>
