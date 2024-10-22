@@ -65,13 +65,15 @@
 				 						<th class="text-center">Kode Produk</th>
 				 						<th class="text-center">Produk</th>
 				 						<th class="text-center">Jumlah</th>
-				 						<th class="text-right">Harga</th>
-				 						<th class="text-right">Total</th>
+				 						<th class="text-right">Harga Jual</th>
+				 						<!-- <th class="text-right">Harga Beli</th> -->
+				 						<th class="text-right">Total Jual</th>
+				 						<!-- <th class="text-right">Total Beli</th> -->
 				 						<th class="text-center">Aksi</th>
 				 					</tr>
 				 				</thead>
 				 				<tbody>
-									<?php $total=0; $cek=0; ?>
+									<?php $total=0; $cek=0; $total_beli=0; ?>
 				 					<?php foreach($temp as $row){ ?>
 				 					<tr class="intro-x" >
 				 						<td class="text-center" ><?= $row['kode_produk'] ?> </td>
@@ -98,8 +100,10 @@
 									$cek = 1;
 								}
 								?>
-				 						<td class="text-right">Rp <?= number_format($row['harga'])  ?> </td>
-				 						<td class="text-right">Rp <?= number_format($row['harga']*$row['jumlah'])  ?> </td>
+				 						<td class="text-right">Rp <?= number_format($row['harga_jual'])  ?> </td>
+				 						<!-- <td class="text-right">Rp <?= number_format($row['harga_beli'])  ?> </td> -->
+				 						<td class="text-right">Rp <?= number_format($row['harga_jual']*$row['jumlah'])  ?> </td>
+				 						<!-- <td class="text-right">Rp <?= number_format($row['harga_beli']*$row['jumlah'])  ?> </td> -->
 				 						<td class="table-report__action">
 				 							<div class="flex justify-center items-center">
 										<a class=" flex items-center text-theme-6" onClick="return confirm('apakah yakin untuk hapus data')"
@@ -118,13 +122,20 @@
 				 							</div>
 				 						</td>
 				 					</tr>
-									<?php $total=$total+$row['harga']*$row['jumlah']; } ?>
+									<?php $total=$total+$row['harga_jual']*$row['jumlah']; } ?>
+									<!-- <?php $total_beli=$total_beli+$row['harga_beli']*$row['jumlah'];  ?> -->
 									<tr>
 										<td class="text-center" >
-											total harga
+											total harga jual
 										</td>
 										<td colspan="4" class="text-right" >Rp <?= number_format($total)  ?></td>
 									</tr>
+									<!-- <tr>
+										<td class="text-center" >
+											total harga beli
+										</td>
+										<td colspan="4" class="text-right" >Rp <?= number_format($total_beli)  ?></td>
+									</tr> -->
 				 				</tbody>
 				 			</table>
 				 		
@@ -135,11 +146,7 @@
 				 			<div class="intro-y box p-5 mt-5 ">
 				 				<div>
 				 					<label>Bayar</label>
-				 					<div class="relative" id="input-groups" >
-				 						<div
-				 							class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 mt-2">
-				 							Rp</div><input type="number" name="bayar" class="input pl-12 w-full h-full border col-span-4 mt-2" required >
-				 					</div>
+				 						<input type="number" id="bayar" name="bayar" class="input w-full border mt-2" required oninput="hitungUang()" >
 				 				</div>
 								 <div class="mt-3" >
 				 					<label>Pembayaran</label>
@@ -148,6 +155,10 @@
 										<option value="Bank">Bank</option>
 									</select>
 				 				</div>
+								<div class="mt-3">
+									<label for="" id="labelUang" >Uang</label>
+									<input type="number" name="uang" id="uang" readonly value="" class="input w-full border mt-2" >
+								</div>
 				 				<div class="text-right mt-5">
 				 					<button type="submit" class="button w-24 bg-theme-1 text-white">Bayar</button>
 				 				</div>
@@ -164,6 +175,33 @@
 	<!-- END: Content -->
 	<!-- BEGIN: JS Assets-->
 	<?php $this->load->view('layout/_js') ?>
+	<script>
+	function hitungUang() {
+		// Ambil nilai total dan bayar
+		var total = <?= $total ?>;
+		var bayar = parseFloat(document.getElementById("bayar").value);
+
+		// Pastikan bayar ada nilainya sebelum melakukan perhitungan
+		if (isNaN(bayar)) {
+			document.getElementById("uang").value = '';
+			document.getElementById("labelUang").innerText = "Uang";
+			return;
+		}
+
+		// Hitung hasil
+		var hasil = bayar - total;
+
+		// Update nilai uang secara dinamis
+		document.getElementById("uang").value = hasil;
+
+		// Update label berdasarkan hasil
+		if (hasil < 0) {
+			document.getElementById("labelUang").innerText = "Piutang";
+		} else {
+			document.getElementById("labelUang").innerText = "Kembalian";
+		}
+	}
+</script>
 	<!-- END: JS Assets-->
 </body>
 
