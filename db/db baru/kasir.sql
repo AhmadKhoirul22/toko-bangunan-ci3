@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Waktu pembuatan: 22 Okt 2024 pada 12.33
+-- Waktu pembuatan: 22 Okt 2024 pada 12.51
 -- Versi server: 8.0.31
 -- Versi PHP: 8.0.26
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `detail_pembelian` (
   `jumlah` int NOT NULL,
   `sub_total` int NOT NULL,
   PRIMARY KEY (`id_detail`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `detail_pembelian`
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `detail_penjualan` (
   `harga_jual` int NOT NULL,
   `harga_beli` int NOT NULL,
   PRIMARY KEY (`id_detail`)
-) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `detail_penjualan`
@@ -98,12 +98,12 @@ DROP TABLE IF EXISTS `detail_utang_pembelian`;
 CREATE TABLE IF NOT EXISTS `detail_utang_pembelian` (
   `id` int NOT NULL AUTO_INCREMENT,
   `kode_pembelian` int NOT NULL,
-  `cicilan_ke` varchar(20) NOT NULL,
+  `cicilan_ke` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `nominal` int NOT NULL,
   `tanggal` date NOT NULL,
-  `pembayaran` varchar(10) NOT NULL,
+  `pembayaran` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `detail_utang_pembelian`
@@ -141,12 +141,12 @@ DROP TABLE IF EXISTS `detail_utang_penjualan`;
 CREATE TABLE IF NOT EXISTS `detail_utang_penjualan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `kode_penjualan` int NOT NULL,
-  `cicilan_ke` varchar(20) NOT NULL,
+  `cicilan_ke` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `nominal` int NOT NULL,
   `tanggal` date NOT NULL,
-  `pembayaran` varchar(10) NOT NULL,
+  `pembayaran` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `detail_utang_penjualan`
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `kategori` (
   `id_kategori` int NOT NULL AUTO_INCREMENT,
   `nama_kategori` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id_kategori`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `kategori`
@@ -218,10 +218,10 @@ DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
   `id_log` int NOT NULL AUTO_INCREMENT,
   `id_produk` int NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
+  `keterangan` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `tanggal` datetime NOT NULL,
   PRIMARY KEY (`id_log`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `log`
@@ -240,12 +240,12 @@ INSERT INTO `log` (`id_log`, `id_produk`, `keterangan`, `tanggal`) VALUES
 DROP TABLE IF EXISTS `pelanggan`;
 CREATE TABLE IF NOT EXISTS `pelanggan` (
   `id_pelanggan` int NOT NULL AUTO_INCREMENT,
-  `nama` varchar(25) NOT NULL,
+  `nama` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `alamat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `telp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `wa` varchar(50) NOT NULL,
+  `wa` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id_pelanggan`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `pelanggan`
@@ -271,11 +271,11 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
   `total_harga` int NOT NULL,
   `tanggal` date NOT NULL,
   `bayar` int NOT NULL,
-  `pembayaran` varchar(10) NOT NULL,
-  `keterangan` varchar(10) NOT NULL,
-  `status` varchar(15) NOT NULL,
+  `pembayaran` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `keterangan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `status` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id_pembelian`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `pembelian`
@@ -302,16 +302,16 @@ INSERT INTO `pembelian` (`id_pembelian`, `kode_pembelian`, `id_supplier`, `total
 DROP TABLE IF EXISTS `penjualan`;
 CREATE TABLE IF NOT EXISTS `penjualan` (
   `id_penjualan` int NOT NULL AUTO_INCREMENT,
-  `kode_penjualan` varchar(15) NOT NULL,
+  `kode_penjualan` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `tanggal` date NOT NULL,
   `total_harga` decimal(10,0) NOT NULL,
   `id_pelanggan` int NOT NULL,
   `bayar` int NOT NULL,
-  `pembayaran` varchar(10) NOT NULL,
-  `keterangan` varchar(10) NOT NULL,
-  `status` varchar(15) NOT NULL,
+  `pembayaran` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `keterangan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `status` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id_penjualan`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `penjualan`
@@ -330,14 +330,14 @@ INSERT INTO `penjualan` (`id_penjualan`, `kode_penjualan`, `tanggal`, `total_har
 DROP TABLE IF EXISTS `produk`;
 CREATE TABLE IF NOT EXISTS `produk` (
   `id_produk` int NOT NULL AUTO_INCREMENT,
-  `kode_produk` varchar(25) NOT NULL,
-  `nama` varchar(25) NOT NULL,
+  `kode_produk` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `nama` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `id_kategori` int NOT NULL,
   `stok` int NOT NULL,
   `harga_jual` decimal(10,0) NOT NULL,
   `harga_beli` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id_produk`)
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `produk`
@@ -361,13 +361,13 @@ INSERT INTO `produk` (`id_produk`, `kode_produk`, `nama`, `id_kategori`, `stok`,
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE IF NOT EXISTS `profile` (
   `id_profile` int NOT NULL AUTO_INCREMENT,
-  `nama` varchar(20) NOT NULL,
+  `nama` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `alamat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `email` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `telp` varchar(20) NOT NULL,
-  `no_rekening` varchar(20) NOT NULL,
+  `telp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `no_rekening` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id_profile`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `profile`
@@ -389,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `supplier` (
   `alamat_supplier` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `telp_supplier` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id_supplier`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `supplier`
@@ -414,7 +414,7 @@ CREATE TABLE IF NOT EXISTS `temp` (
   `id_produk` int NOT NULL,
   `jumlah` int NOT NULL,
   PRIMARY KEY (`id_temp`)
-) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `temp`
@@ -438,7 +438,7 @@ CREATE TABLE IF NOT EXISTS `temporary` (
   `id_user` int NOT NULL,
   `jumlah` int NOT NULL,
   PRIMARY KEY (`id_temporary`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `temporary`
@@ -456,12 +456,12 @@ INSERT INTO `temporary` (`id_temporary`, `id_supplier`, `id_produk`, `id_user`, 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id_user` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(30) NOT NULL,
+  `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` varchar(111) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `nama` varchar(30) NOT NULL,
-  `level` varchar(10) NOT NULL,
+  `nama` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `level` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `user`
@@ -487,7 +487,7 @@ CREATE TABLE IF NOT EXISTS `utang_pembelian` (
   `sisa` int NOT NULL,
   `id_supplier` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `utang_pembelian`
@@ -520,7 +520,7 @@ CREATE TABLE IF NOT EXISTS `utang_penjualan` (
   `sisa` int NOT NULL,
   `id_pelanggan` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `utang_penjualan`
